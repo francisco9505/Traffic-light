@@ -1,26 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+  const [color, setColor] = useState("red");
+  const [selectedLight, setSelectedLight] = useState("red");
+  const [automaticLight, setAutomaticLight] = useState(false);
+
+  const change = () => {
+    if (automaticLight) {
+      if (selectedLight === "red") {
+        setSelectedLight("yellow");
+      } else if (selectedLight === "yellow") {
+        setSelectedLight("green");
+      } else if (selectedLight === "green") {
+        setSelectedLight("purple");
+      } else {
+        setSelectedLight("red");
+      }
+    }
+  };
+
+  setTimeout(change, 2000);
+
+  return (
+    <>
+      <div className="wrapper">
+        <div
+          className={`red-light ${selectedLight === "red" ? "blurred" : ""}`}
+          onClick={() => {
+            setSelectedLight("red");
+          }}
+        ></div>
+        <div
+          className={`yellow-light ${
+            selectedLight === "yellow" ? "blurred" : ""
+          }`}
+          onClick={() => {
+            setSelectedLight("yellow");
+          }}
+        ></div>
+        <div
+          className={`green-light ${
+            selectedLight === "green" ? "blurred" : ""
+          }`}
+          onClick={() => {
+            setSelectedLight("green");
+          }}
+        ></div>
+        <div
+          className={`purple-light ${
+            selectedLight === "purple" ? "blurred" : ""
+          }`}
+          onClick={() => {
+            setSelectedLight("purple");
+          }}
+        ></div>
+      </div>
+
+      <div style={{ marginLeft: "470px" }}>
+        <button
+          onClick={() => {
+            setAutomaticLight(!automaticLight);
+          }}
+        >
+          {automaticLight ? "Stop Automatic" : "Automatic"}
+        </button>
+
+        <button
+          onClick={() => {
+            setSelectedLight("purple");
+          }}
+        >
+          Purple
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default Home;
